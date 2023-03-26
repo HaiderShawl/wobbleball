@@ -8,7 +8,18 @@ canvas {
   left: 0;
 }
 
+#mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 #score {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
   font-size: 24px;
   font-weight: bold;
   font-family: 'arial';
@@ -30,9 +41,8 @@ button {
 }
 
 
-#mask {
-  position: absolute;
-  /* align center */
-  top: 5%;
-  left: 40% ;
+#gameOver {
+  position: relative;
+  text-align: center;
+  margin-top: 150px;
 }

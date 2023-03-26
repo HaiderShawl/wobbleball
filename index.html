@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="init()">
-    <!-- add a canvas element -->
+    <!-- canvas element -->
     <canvas id="canvas"></canvas>
+    
     <div id="mask">
-        <div id="score">Score: 0</div>
-        <button onclick="requestDeviceOrientation()">
-            Click me
-        </button>
-        <br>
+        <div id="score"></div>
+        <div id="gameOver"></div>
     </div>
+
     <script src="permissions.js"></script>
     <script src="script.js"></script>
 </body>

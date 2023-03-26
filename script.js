@@ -1,4 +1,6 @@
 function init() {
+  requestDeviceOrientation()
+
   const canvas = document.getElementById("canvas");
   const scoreDisplay = document.getElementById("score");
   const ctx = canvas.getContext("2d");
@@ -87,13 +89,9 @@ function init() {
       // stop the game loop
       cancelAnimationFrame(gameLoop);
 
-      // display the final score at the center of the canvas
-      ctx.font = "bold 30px Arial";
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.fillText(`Final Score: ${ball.score}`, canvas.width / 2, canvas.height / 2);
-
-      // display the restart button
+      // display  restart button
+      const gameOver = document.getElementById("gameOver");
+      if (gameOver.style) gameOver.style.display = "block";
       const restartButton = document.createElement("button");
       restartButton.textContent = "Restart";
       restartButton.addEventListener("click", () => {
@@ -101,12 +99,12 @@ function init() {
         ball.x = canvas.width / 2;
         ball.y = canvas.height / 2;
         ball.score = 0;
-
         // remove the restart button and start the game loop again
+        gameOver.style.display = "none";
         restartButton.remove();
         gameLoop();
       });
-      document.getElementById("mask").appendChild(restartButton);
+      gameOver.appendChild(restartButton);
     } else {
       // request the next frame of the game loop
       requestAnimationFrame(gameLoop);
