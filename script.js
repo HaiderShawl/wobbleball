@@ -33,19 +33,12 @@ function init() {
     const gamma = event.gamma;
   
     // calculate the new position of the ball based on the gyroscope data
-    const dx = gamma / 10; // divide by 10 to reduce the sensitivity
-    const dy = beta / 10;
-
-    ball.vx = dx;
-    ball.vy = dy;
+    const dx = gamma / 5; // divide by 10 to reduce the sensitivity
+    const dy = beta / 5;
 
     // update the position of the ball based on its velocity
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-
-    // add some friction to slow down the ball's motion over time
-    ball.vx *= 0.9;
-    ball.vy *= 0.9;
+    ball.x += dx
+    ball.y += dy
   
     // keep the ball within the canvas boundaries
     if (ball.x < ball.radius) {
