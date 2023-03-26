@@ -20,7 +20,7 @@ function init() {
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
     const dy = beta / 10;
     ball.x += dx;
-    ball.y += dy;
+    ball.y -= dy;
   
     // keep the ball within the canvas boundaries
     if (ball.x < ball.radius) {
