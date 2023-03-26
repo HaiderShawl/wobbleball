@@ -27,7 +27,7 @@ function init() {
 		// }
 
     ball.x += dx;
-    ball.y -= dy;
+    ball.y += dy;
 
 		document.getElementById("dy").innerHTML = "dy: " + dy;
 
