@@ -9,11 +9,13 @@
 </head>
 <body onload="init()">
     <!-- add a canvas element -->
-    <canvas id="canvas" width="400" height="600"></canvas>
-    <div id="score">Score: 0</div>
-    <button onclick="requestDeviceOrientation()">
-        CLick me
-    </button>
+    <canvas id="canvas"></canvas>
+    <div id="mask">
+        <div id="score">Score: 0</div>
+        <button onclick="requestDeviceOrientation()">
+            Cick me
+        </button>
+    </div>
     <script src="permissions.js"></script>
     <script src="script.js"></script>
 </body>

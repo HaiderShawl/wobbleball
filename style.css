@@ -1,8 +1,34 @@
+body {
+  background-color: red;
+}
+
 canvas {
-  border: 2px solid black;
+  position: absolute;
 }
 
 #score {
   font-size: 24px;
   font-weight: bold;
+  font-family: 'arial';
+}
+
+button {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10%;
+  padding: 12px 24px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+#mask {
+  position: absolute;
+  top: 50;
+  left: 50;
 }

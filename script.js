@@ -3,11 +3,17 @@ function init() {
   const scoreDisplay = document.getElementById("score");
   const ctx = canvas.getContext("2d");
 
+  canvas.width = 2 * window.innerWidth;
+  canvas.height = 2 * window.innerHeight;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+
+
   const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: 20,
-    color: "red",
+    color: "white",
 		score: 0
   };
 
@@ -87,7 +93,7 @@ function init() {
         restartButton.remove();
         gameLoop();
       });
-      canvas.parentElement.appendChild(restartButton);
+      document.getElementById("mask").appendChild(restartButton);
     } else {
       // request the next frame of the game loop
       requestAnimationFrame(gameLoop);
