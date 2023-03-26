@@ -20,17 +20,8 @@ function init() {
     // calculate the new position of the ball based on the gyroscope data
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
     const dy = beta / 10;
-
-		// // reverse the direction of the ball when the device is tilted forwards or backwards
-		// if (beta > 90 || beta < -90) {
-		// 	dy = -dy;
-		// }
-
     ball.x += dx;
     ball.y += dy;
-
-		document.getElementById("dy").innerHTML = "dy: " + dy;
-
   
     // keep the ball within the canvas boundaries
     if (ball.x < ball.radius) {
@@ -48,29 +39,40 @@ function init() {
   function gameLoop() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
     // draw the ball
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     ctx.fillStyle = ball.color;
     ctx.fill();
     ctx.closePath();
-
+  
     // calculate the score based on the distance from the ball to the center of the canvas
     const distance = Math.sqrt(
       Math.pow(ball.x - canvas.width / 2, 2) +
         Math.pow(ball.y - canvas.height / 2, 2)
     );
     const score = Math.floor((canvas.width / 2 - distance) / 10);
-		ball.score += score;
+    ball.score += score;
   
     // update the score display
     scoreDisplay.textContent = `Score: ${ball.score}`;
-		document.getElementById("y").innerHTML = "Y: " + ball.y;
-
-    // request the next frame of the game loop
-    requestAnimationFrame(gameLoop);
+  
+    // check if the ball has hit the boundary
+    if (
+      ball.x <= ball.radius ||
+      ball.x >= canvas.width - ball.radius ||
+      ball.y <= ball.radius ||
+      ball.y >= canvas.height - ball.radius
+    ) {
+      // stop the game loop
+      cancelAnimationFrame(gameLoop);
+    } else {
+      // request the next frame of the game loop
+      requestAnimationFrame(gameLoop);
+    }
   }
+  
 
   // set up the event listener for the deviceorientation event
   window.addEventListener("deviceorientation", handleOrientation, true);
