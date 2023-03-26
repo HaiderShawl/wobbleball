@@ -147,17 +147,18 @@ function init() {
   }
 
   function createObstacle() {
+    const random = Math.random();
+
     const obstacle = {
       x: 0,
       y: 0,
-      radius: 40,
+      radius: random*10+20,
       color: "black",
       dx: 1,
       dy: 1
     };  
   
     // set obstacle position to random position outside the canvas near the boundary
-    const random = Math.random();
     if (random < 0.25) {
       obstacle.x = -obstacle.radius;
       obstacle.y = Math.random() * canvas.height;
@@ -172,16 +173,17 @@ function init() {
       obstacle.y = canvas.height + obstacle.radius;
     }
   
+    const randomSpeed = Math.random() * 2 + 1;
     // set obstacle direction to move towards the center of the canvas
     if (obstacle.x < canvas.width / 2) {
-      obstacle.dx = Math.abs(obstacle.dx);
+      obstacle.dx = randomSpeed*Math.abs(obstacle.dx);
     } else {
-      obstacle.dx = -Math.abs(obstacle.dx);
+      obstacle.dx = randomSpeed*-Math.abs(obstacle.dx);
     }
     if (obstacle.y < canvas.height / 2) {
-      obstacle.dy = Math.abs(obstacle.dy);
+      obstacle.dy = randomSpeed*Math.abs(obstacle.dy);
     } else {
-      obstacle.dy = -Math.abs(obstacle.dy);
+      obstacle.dy = -randomSpeed*Math.abs(obstacle.dy);
     }
     return obstacle;
   }
