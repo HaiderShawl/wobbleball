@@ -19,7 +19,7 @@ function init() {
   
     // calculate the new position of the ball based on the gyroscope data
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
-    let dy = -beta / 10;
+    const dy = beta / 10;
 
 		// // reverse the direction of the ball when the device is tilted forwards or backwards
 		// if (beta > 90 || beta < -90) {
@@ -27,7 +27,7 @@ function init() {
 		// }
 
     ball.x += dx;
-    ball.y += dy;
+    ball.y -= dy;
 
 		document.getElementById("dy").innerHTML = "dy: " + dy;
 
