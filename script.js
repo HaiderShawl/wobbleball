@@ -67,6 +67,27 @@ function init() {
     ) {
       // stop the game loop
       cancelAnimationFrame(gameLoop);
+
+      // display the final score at the center of the canvas
+      ctx.font = "48px Arial";
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.fillText(`Final Score: ${ball.score}`, canvas.width / 2, canvas.height / 2);
+
+      // display the restart button
+      const restartButton = document.createElement("button");
+      restartButton.textContent = "Restart";
+      restartButton.addEventListener("click", () => {
+        // reset the ball position and score
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.score = 0;
+
+        // remove the restart button and start the game loop again
+        restartButton.remove();
+        gameLoop();
+      });
+      canvas.parentElement.appendChild(restartButton);
     } else {
       // request the next frame of the game loop
       requestAnimationFrame(gameLoop);
