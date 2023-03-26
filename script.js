@@ -7,7 +7,8 @@ function init() {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: 20,
-    color: "red"
+    color: "red",
+		score: 0
   };
 
   function handleOrientation(event) {
@@ -18,9 +19,9 @@ function init() {
   
     // calculate the new position of the ball based on the gyroscope data
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
-    const dy = beta / 10;
+    const dy = -beta / 10;
     ball.x += dx;
-    ball.y -= dy;
+    ball.y += dy;
   
     // keep the ball within the canvas boundaries
     if (ball.x < ball.radius) {
@@ -51,10 +52,11 @@ function init() {
       Math.pow(ball.x - canvas.width / 2, 2) +
         Math.pow(ball.y - canvas.height / 2, 2)
     );
-    const score = Math.floor((canvas.width / 2 - distance) * 100);
+    const score = Math.floor((canvas.width / 2 - distance) / 10);
+		ball.score += score;
   
     // update the score display
-    scoreDisplay.textContent = `Score: ${score}`;
+    scoreDisplay.textContent = `Score: ${ball.score}`;
 
     // request the next frame of the game loop
     requestAnimationFrame(gameLoop);
