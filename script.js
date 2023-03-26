@@ -3,8 +3,8 @@ function init() {
   const scoreDisplay = document.getElementById("score");
   const ctx = canvas.getContext("2d");
 
-  canvas.width = 2 * window.innerWidth;
-  canvas.height = 2 * window.innerHeight;
+  canvas.width =  window.innerWidth;
+  canvas.height = window.innerHeight;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
 
