@@ -21,6 +21,15 @@ function init() {
 		score: 0
   };
 
+  const obstacle = {
+    x: -100,
+    y: -100,
+    radius: 40,
+    color: "black",
+    dx: 1,
+    dy: 1
+  };  
+
   function handleOrientation(event) {
     // extract the alpha, beta, and gamma values
     const alpha = event.alpha;
@@ -59,15 +68,32 @@ function init() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const radius = ball.radius + Math.sin(Date.now() / 200) * 1;
-  
+    const ballRadius = ball.radius + Math.sin(Date.now() / 200) * 1;
+
     // draw the ball
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, radius, 0, Math.PI * 2);
+    ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
     ctx.fillStyle = ball.color;
     ctx.fill();
     ctx.closePath();
-  
+
+    const obstacleRadius = obstacle.radius + Math.sin(Date.now() / 200) * 1;
+    // draw the obstacle
+    ctx.beginPath();
+    ctx.arc(obstacle.x, obstacle.y, obstacleRadius, 0, Math.PI * 2);
+    ctx.fillStyle = obstacle.color;
+    ctx.fill();
+    ctx.closePath();
+
+    // move the obstacle
+    obstacle.x += obstacle.dx;
+    obstacle.y += obstacle.dy;
+
+    // calculate the distance between the ball and the obstacle
+    const obstacleDistance = Math.sqrt(
+      Math.pow(ball.x - obstacle.x, 2) + Math.pow(ball.y - obstacle.y, 2)
+    );
+
     // calculate the score based on the distance from the ball to the center of the canvas
     const distance = Math.sqrt(
       Math.pow(ball.x - canvas.width / 2, 2) +
@@ -84,7 +110,8 @@ function init() {
       ball.x <= ball.radius ||
       ball.x >= canvas.width - ball.radius ||
       ball.y <= ball.radius ||
-      ball.y >= canvas.height - ball.radius
+      ball.y >= canvas.height - ball.radius ||
+      obstacleDistance < ballRadius + obstacleRadius
     ) {
       // stop the game loop
       cancelAnimationFrame(gameLoop);
@@ -99,6 +126,9 @@ function init() {
         ball.x = canvas.width / 2;
         ball.y = canvas.height / 2;
         ball.score = 0;
+        // reset the obstacle position
+        obstacle.x = -100;
+        obstacle.y = -100;
         // remove the restart button and start the game loop again
         gameOver.style.display = "none";
         restartButton.remove();
