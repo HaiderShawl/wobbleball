@@ -52,7 +52,7 @@ function gameLoop() {
       Math.pow(ball.y - canvas.height / 2, 2)
   );
   const score = Math.floor((canvas.width / 2 - distance) * 100);
-
+	const scoreDisplay = document.getElementById("score");
   // update the score display
   scoreDisplay.textContent = `Score: ${score}`;
 
