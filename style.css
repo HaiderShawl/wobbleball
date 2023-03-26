@@ -16,6 +16,7 @@ canvas {
 
 button {
   background-color: black;
+  border: none;
   color: white;
   font-family: Arial;
   font-size: 20px;
@@ -25,11 +26,13 @@ button {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 
 #mask {
   position: absolute;
-  top: 50;
-  left: 50;
+  /* align center */
+  top: 5%;
+  left: 40% ;
 }

@@ -56,10 +56,12 @@ function init() {
   function gameLoop() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const radius = ball.radius + Math.sin(Date.now() / 200) * 1;
   
     // draw the ball
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.arc(ball.x, ball.y, radius, 0, Math.PI * 2);
     ctx.fillStyle = ball.color;
     ctx.fill();
     ctx.closePath();
@@ -86,7 +88,7 @@ function init() {
       cancelAnimationFrame(gameLoop);
 
       // display the final score at the center of the canvas
-      ctx.font = "bold 48px Arial";
+      ctx.font = "bold 30px Arial";
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
       ctx.fillText(`Final Score: ${ball.score}`, canvas.width / 2, canvas.height / 2);
