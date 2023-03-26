@@ -75,7 +75,7 @@ function init() {
       cancelAnimationFrame(gameLoop);
 
       // display the final score at the center of the canvas
-      ctx.font = "48px Arial";
+      ctx.font = "bold 48px Arial";
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
       ctx.fillText(`Final Score: ${ball.score}`, canvas.width / 2, canvas.height / 2);

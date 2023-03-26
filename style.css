@@ -15,14 +15,13 @@ canvas {
 }
 
 button {
-  display: inline-block;
   background-color: black;
   color: white;
   font-family: Arial;
   font-size: 20px;
-  font-weight: bold;
-  border-radius: 10%;
-  padding: 12px 24px;
+  font-weight: bold;  
+  border-radius: 30px;
+  padding: 18px 24px;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
