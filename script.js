@@ -22,6 +22,7 @@ function init() {
   };
 
   let obstacle = createObstacle()
+  let reward = createReward()
 
 
   function handleOrientation(event) {
@@ -79,23 +80,47 @@ function init() {
     ctx.fill();
     ctx.closePath();
 
+    const rewardRadius = reward.radius + Math.sin(Date.now() / 200) * 1;
+    // draw the reward
+    ctx.beginPath();
+    ctx.arc(reward.x, reward.y, rewardRadius, 0, Math.PI * 2);
+    ctx.fillStyle = reward.color;
+    ctx.fill();
+    ctx.closePath();
+
     // move the obstacle
     obstacle.x += obstacle.dx;
     obstacle.y += obstacle.dy;
+
+    // move the reward
+    reward.x += reward.dx;
+    reward.y += reward.dy;
 
     // calculate the distance between the ball and the obstacle
     const obstacleDistance = Math.sqrt(
       Math.pow(ball.x - obstacle.x, 2) + Math.pow(ball.y - obstacle.y, 2)
     );
 
+    // calculate the distance between the ball and the reward
+    const rewardDistance = Math.sqrt(
+      Math.pow(ball.x - reward.x, 2) + Math.pow(ball.y - reward.y, 2)
+    );
+
+    // check if the ball has hit the reward
+    if (rewardDistance < ballRadius + rewardRadius) {
+      // create a new reward
+      ball.score += 10000;
+      reward = createReward();
+    }
+
     // calculate the score based on the distance from the ball to the center of the canvas
     const distance = Math.sqrt(
       Math.pow(ball.x - canvas.width / 2, 2) +
         Math.pow(ball.y - canvas.height / 2, 2)
     );
-    const score = Math.floor((canvas.width / 2 - distance) / 10);
+    const score = Math.floor((canvas.height / 2 - distance) / 10);
     ball.score += score;
-  
+
     // update the score display
     scoreDisplay.textContent = `Score: ${ball.score}`;
 
@@ -108,6 +133,17 @@ function init() {
     ) {
       // create a new obstacle
       obstacle = createObstacle();
+    }
+
+    // check if reward is outside the canvas
+    if (
+      reward.x < -reward.radius ||
+      reward.x > canvas.width + reward.radius ||
+      reward.y < -reward.radius ||
+      reward.y > canvas.height + reward.radius
+    ) {
+      // create a new reward
+      reward = createReward();
     }
   
     // check if the ball has hit the boundary
@@ -186,6 +222,48 @@ function init() {
       obstacle.dy = -randomSpeed*Math.abs(obstacle.dy);
     }
     return obstacle;
+  }
+
+  function createReward() {
+    const random = Math.random();
+
+    const reward = {
+      x: 0,
+      y: 0,
+      radius: 10,
+      color: "yellow",
+      dx: 1,
+      dy: 1
+    };  
+  
+    // set reward position to random position outside the canvas near the boundary
+    if (random < 0.25) {
+      reward.x = -reward.radius;
+      reward.y = Math.random() * canvas.height;
+    } else if (random < 0.5) {
+      reward.x = canvas.width + reward.radius;
+      reward.y = Math.random() * canvas.height;
+    } else if (random < 0.75) {
+      reward.x = Math.random() * canvas.width;
+      reward.y = -reward.radius;
+    } else {
+      reward.x = Math.random() * canvas.width;
+      reward.y = canvas.height + reward.radius;
+    }
+  
+    const randomSpeed = Math.random() * 2 + 1;
+    // set reward direction to move towards the center of the canvas
+    if (reward.x < canvas.width / 2) {
+      reward.dx = randomSpeed*Math.abs(reward.dx);
+    } else {
+      reward.dx = randomSpeed*-Math.abs(reward.dx);
+    }
+    if (reward.y < canvas.height / 2) {
+      reward.dy = randomSpeed*Math.abs(reward.dy);
+    } else {
+      reward.dy = -randomSpeed*Math.abs(reward.dy);
+    }
+    return reward;
   }
   
 
