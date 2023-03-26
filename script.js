@@ -18,7 +18,8 @@ function init() {
     vy: 0,
     radius: 20,
     color: "white",
-		score: 0
+		score: 0,
+    highscore: 0
   };
 
   let obstacle = createObstacle()
@@ -156,6 +157,12 @@ function init() {
     ) {
       // stop the game loop
       cancelAnimationFrame(gameLoop);
+
+      if (ball.score > ball.highscore) {
+        ball.highscore = ball.score;
+      }
+      // display the high score
+      document.getElementById("highscore").textContent = `Highscore: ${ball.highscore}`;
 
       // display  restart button
       const gameOver = document.getElementById("gameOver");
