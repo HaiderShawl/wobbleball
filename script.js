@@ -34,8 +34,8 @@ function init() {
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
     const dy = beta / 10;
 
-    ball.vx += dx;
-    ball.vy += dy;
+    ball.vx = dx;
+    ball.vy = dy;
 
     // update the position of the ball based on its velocity
     ball.x += ball.vx;
