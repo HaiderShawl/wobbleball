@@ -21,14 +21,8 @@ function init() {
 		score: 0
   };
 
-  const obstacle = {
-    x: -100,
-    y: -100,
-    radius: 40,
-    color: "black",
-    dx: 1,
-    dy: 1
-  };  
+  let obstacle = createObstacle()
+
 
   function handleOrientation(event) {
     // extract the alpha, beta, and gamma values
@@ -40,8 +34,8 @@ function init() {
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
     const dy = beta / 10;
 
-    ball.vx = dx;
-    ball.vy = dy;
+    ball.vx += dx;
+    ball.vy += dy;
 
     // update the position of the ball based on its velocity
     ball.x += ball.vx;
@@ -104,6 +98,17 @@ function init() {
   
     // update the score display
     scoreDisplay.textContent = `Score: ${ball.score}`;
+
+    // check if obstacle is outside the canvas
+    if (
+      obstacle.x < -obstacle.radius ||
+      obstacle.x > canvas.width + obstacle.radius ||
+      obstacle.y < -obstacle.radius ||
+      obstacle.y > canvas.height + obstacle.radius
+    ) {
+      // create a new obstacle
+      obstacle = createObstacle();
+    }
   
     // check if the ball has hit the boundary
     if (
@@ -139,6 +144,46 @@ function init() {
       // request the next frame of the game loop
       requestAnimationFrame(gameLoop);
     }
+  }
+
+  function createObstacle() {
+    const obstacle = {
+      x: 0,
+      y: 0,
+      radius: 40,
+      color: "black",
+      dx: 1,
+      dy: 1
+    };  
+  
+    // set obstacle position to random position outside the canvas near the boundary
+    const random = Math.random();
+    if (random < 0.25) {
+      obstacle.x = -obstacle.radius;
+      obstacle.y = Math.random() * canvas.height;
+    } else if (random < 0.5) {
+      obstacle.x = canvas.width + obstacle.radius;
+      obstacle.y = Math.random() * canvas.height;
+    } else if (random < 0.75) {
+      obstacle.x = Math.random() * canvas.width;
+      obstacle.y = -obstacle.radius;
+    } else {
+      obstacle.x = Math.random() * canvas.width;
+      obstacle.y = canvas.height + obstacle.radius;
+    }
+  
+    // set obstacle direction to move towards the center of the canvas
+    if (obstacle.x < canvas.width / 2) {
+      obstacle.dx = Math.abs(obstacle.dx);
+    } else {
+      obstacle.dx = -Math.abs(obstacle.dx);
+    }
+    if (obstacle.y < canvas.height / 2) {
+      obstacle.dy = Math.abs(obstacle.dy);
+    } else {
+      obstacle.dy = -Math.abs(obstacle.dy);
+    }
+    return obstacle;
   }
   
 
