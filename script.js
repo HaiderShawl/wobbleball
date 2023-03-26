@@ -16,7 +16,7 @@ function init() {
     y: canvas.height / 2,
     vx: 0,
     vy: 0,
-    radius: 20,
+    radius: 30,
     color: "white",
 		score: 0,
     highscore: 0
@@ -188,7 +188,7 @@ function init() {
     const obstacle = {
       x: 0,
       y: 0,
-      radius: random*10+20,
+      radius: random*10+30,
       color: "black",
       dx: 1,
       dy: 1
@@ -209,7 +209,7 @@ function init() {
       obstacle.y = canvas.height + obstacle.radius;
     }
   
-    const randomSpeed = Math.random() * 2 + 1;
+    const randomSpeed = Math.random() * 2 + 2;
     // set obstacle direction to move towards the center of the canvas
     if (obstacle.x < canvas.width / 2) {
       obstacle.dx = randomSpeed*Math.abs(obstacle.dx);
@@ -251,7 +251,7 @@ function init() {
       reward.y = canvas.height + reward.radius;
     }
   
-    const randomSpeed = Math.random() * 2 + 1;
+    const randomSpeed = Math.random() * 2 + 2;
     // set reward direction to move towards the center of the canvas
     if (reward.x < canvas.width / 2) {
       reward.dx = randomSpeed*Math.abs(reward.dx);
