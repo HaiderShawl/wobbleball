@@ -18,7 +18,7 @@ function init() {
   
     // calculate the new position of the ball based on the gyroscope data
     const dx = gamma / 10; // divide by 10 to reduce the sensitivity
-    const dy = -beta / 10;
+    const dy = beta / 10;
     ball.x += dx;
     ball.y += dy;
   
